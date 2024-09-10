@@ -1,5 +1,4 @@
 "use client";
-
 import { SessionProvider, useSession, signOut } from "next-auth/react";
 import { ReactNode } from "react";
 import { useRouter } from "next/navigation";
