@@ -36,6 +36,14 @@ const handler = NextAuth({
     error: "/login",
   },
   callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        // Agrega datos personalizados al token JWT
+        token.name = user.name;
+        token.email = user.email;
+      }
+      return token;
+    },
     async session({ session, token }) {
       console.log({ session, token })
       // Agrega datos personalizados al objeto de sesión
@@ -45,15 +53,11 @@ const handler = NextAuth({
       }
       return session;
     },
-    async jwt({ token, user }) {
-      if (user) {
-        // Agrega datos personalizados al token JWT
-        token.name = user.name;
-        token.email = user.email;
-      }
-      return token;
-    }
-  }
+  },
+  secret: process.env.NEXTAUTH_SECRET,
+  session: {
+    strategy: "jwt", // Usar JWT en lugar de sesiones por cookies
+  },
 });
 
 export { handler as GET, handler as POST };
