@@ -1,18 +1,10 @@
 'use client'
-import { useSession } from "next-auth/react";
+import AuthGuard from "../components/AuthGuard";
 
 export default function AdminPage() {
-    const { data: session, status } = useSession();
-
-    console.log({ session })
-
-    if (status === "loading") {
-        return <p>Loading...</p>;
-    }
-
-    if (!session) {
-        return <p>Access Denied. Please login.</p>;
-    }
-
-    return <div>Welcome to your admin, {session.user?.name}!</div>;
+    return (
+        <AuthGuard>
+            <div>Welcome to your admin!</div>
+        </AuthGuard>
+    );
 }
