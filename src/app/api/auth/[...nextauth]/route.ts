@@ -15,6 +15,7 @@ const handler = NextAuth({
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
+      // eslint-disable-next-line
       async authorize(credentials: Record<"email" | "password", string> | any) {
         // Aquí implementas la lógica para autenticar al usuario con email y password
         const user = await authenticateUser(credentials?.email, credentials?.password);
